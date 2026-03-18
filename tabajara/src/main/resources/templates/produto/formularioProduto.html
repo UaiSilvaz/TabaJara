@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Produto</title>
+</head>
+<body>
+    <h1 style="text-align: center;">Cadastrar Produto</h1>
+    <form th:action="@{/produtos/salvar}" method="POST" th:object="${produto}">
+        <input type="hidden" th:field="*{idProduto}" />
+
+        <label for="descProduto">Descricao:</label>
+        <input id="descProduto" type="text" th:field="*{descProduto}" />
+        <br />
+
+        <label for="valorProduto">Valor:</label>
+        <input id="valorProduto" type="text" th:field="*{valorProduto}" />
+        <br />
+
+        <label for="unidadeProduto">Unidade:</label>
+        <input id="unidadeProduto" type="text" th:field="*{unidadeProduto}" />
+        <br />
+
+        <label for="marcaProduto">Marca:</label>
+        <input id="marcaProduto" type="text" th:field="*{marcaProduto}" />
+        <br />
+
+        <label for="fornecedor">Fornecedor:</label>
+        <select name="idFornecedor">
+            <option value="" disabled>Selecione um Fornecedor</option>
+            <option th:each="fornecedor : ${fornecedores}" th:value="${fornecedor.idFornecedor}" th:text="${fornecedor.nomeFornecedor}" th:selected="${idFornecedor == fornecedor.idFornecedor}"></option>
+        </select>
+
+        <input type="submit" value="Salvar" />
+    </form>
+</body>
+</html>

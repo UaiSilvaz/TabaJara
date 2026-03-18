@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Fornecedores</title>
+</head>
+<body>
+    <h1>Lista de Fornecedores</h1>
+    <h3><a th:href="@{/fornecedor/criarFornecedores}">Adicionar Fornecedor</a></h3>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>CNPJ</th>
+            <th>Endereco</th>
+            <th>Telefone</th>
+            <th>Cidade</th>
+            <th>Acoes</th>
+        </tr>
+        <tbody>
+            <tr th:each="fornecedor : ${fornecedores}">
+                <td th:text="${fornecedor.idFornecedor}">ID</td>
+                <td th:text="${fornecedor.nomeFornecedor}">Nome</td>
+                <td th:text="${fornecedor.cpjFornecedor}">CNPJ</td>
+                <td th:text="${fornecedor.enderecoFornecedor}">Endereco</td>
+                <td th:text="${fornecedor.telefoneFornecedor}">Telefone</td>
+                <td th:text="${fornecedor.cidadeFornecedor}">Cidade</td>
+                <td>
+                    <a th:href="@{/fornecedor/editar/{id}(id=${fornecedor.idFornecedor})}">Editar</a>
+                    <a th:href="@{/fornecedor/excluir/{id}(id=${fornecedor.idFornecedor})}">Excluir</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

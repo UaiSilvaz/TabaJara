@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Fornecedor</title>
+</head>
+<body>
+    <h1 style="text-align: center;">Cadastrar Fornecedor</h1>
+    <form th:action="@{/fornecedor/salvarFornecedores}" method="POST" th:object="${fornecedor}">
+        <input type="hidden" th:field="*{idFornecedor}" />
+
+        <label for="nomeFornecedor">Nome:</label>
+        <input id="nomeFornecedor" type="text" th:field="*{nomeFornecedor}" />
+        <br />
+
+        <label for="cpjFornecedor">CNPJ:</label>
+        <input id="cpjFornecedor" type="text" th:field="*{cpjFornecedor}" />
+        <br />
+
+        <label for="telefoneFornecedor">Telefone:</label>
+        <input id="telefoneFornecedor" type="text" th:field="*{telefoneFornecedor}" />
+        <br />
+
+        <label for="enderecoFornecedor">Endereco:</label>
+        <input id="enderecoFornecedor" type="text" th:field="*{enderecoFornecedor}" />
+        <br />
+
+        <label for="cidadeFornecedor">Cidade:</label>
+        <input id="cidadeFornecedor" type="text" th:field="*{cidadeFornecedor}" />
+        <br />
+
+        <input type="submit" value="Salvar" />
+    </form>
+</body>
+</html>
