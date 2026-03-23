@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Organizações Tabajara</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}" />
+    <script th:src="@{/js/app.js}" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <div class="brand">
+          <div class="brand__icon">T</div>
+          <div class="brand__text">
+            <strong>Organizações Tabajara</strong>
+            <span>Controle estratégico</span>
+          </div>
+        </div>
+        <nav class="app-nav" aria-label="Navegação primária">
+          <a class="app-nav__link" th:href="@{/home}" aria-current="page">Início</a>
+          <a class="app-nav__link" th:href="@{/produtos/listar}">Produtos</a>
+          <a class="app-nav__link" th:href="@{/fornecedor/listarFornecedores}">
+            Fornecedores
+          </a>
+          <a class="app-nav__link" th:href="@{/usuarios/criar}">Usuários</a>
+        </nav>
+        <button
+          class="theme-toggle"
+          id="theme-toggle"
+          type="button"
+          aria-label="Alternar tema entre claro e escuro"
+        ></button>
+      </header>
+
+      <main class="app-main">
+        <section class="hero">
+          <h1>Painel central da Tabajara</h1>
+          <p>
+            Aqui começam as telas operacionais do sistema. Acesse os cadastros, acompanhe os
+            fornecedores e mantenha o catálogo de produtos organizado a partir de um único ponto.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn--primary" th:href="@{/produtos/listar}">Gerenciar produtos</a>
+            <a class="btn btn--secondary" th:href="@{/fornecedor/listarFornecedores}">
+              Gerenciar fornecedores
+            </a>
+          </div>
+
+          <div class="hero-grid">
+            <article class="card">
+              <p class="tag">Produtos</p>
+              <h2 class="card__title">Catálogo inteligente</h2>
+              <p class="card__text">
+                Visualize e edite o portfólio de produtos em uma tabela moderna, com ações
+                rápidas e marcações claras.
+              </p>
+              <a class="card__cta" th:href="@{/produtos/listar}">Abrir lista</a>
+            </article>
+
+            <article class="card">
+              <p class="tag">Fornecedores</p>
+              <h2 class="card__title">Parceiros confiáveis</h2>
+              <p class="card__text">
+                Tenha controle total sobre contatos, CNPJs e cidades. Cadastre, edite ou
+                remova fornecedores sem sair do ritmo.
+              </p>
+              <a class="card__cta" th:href="@{/fornecedor/listarFornecedores}">
+                Ver fornecedores
+              </a>
+            </article>
+
+            <article class="card">
+              <p class="tag">Usuários</p>
+              <h2 class="card__title">Acesso da equipe</h2>
+              <p class="card__text">
+                Cadastre novos usuários para liberar acesso ao sistema e manter a operação
+                organizada.
+              </p>
+              <a class="card__cta" th:href="@{/usuarios/criar}">Criar usuário</a>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Tabajara</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}" />
+    <script th:src="@{/js/app.js}" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <div class="brand">
+          <div class="brand__icon">T</div>
+          <div class="brand__text">
+            <strong>Organizações Tabajara</strong>
+            <span>Acesso seguro</span>
+          </div>
+        </div>
+        <nav class="app-nav" aria-label="Navegação primária">
+          <a class="app-nav__link" th:href="@{/}">Início</a>
+        </nav>
+        <button
+          class="theme-toggle"
+          id="theme-toggle"
+          type="button"
+          aria-label="Alternar tema entre claro e escuro"
+        ></button>
+      </header>
+
+      <main class="app-main">
+        <section class="panel">
+          <div class="panel__header">
+            <div>
+              <h2>Faça login para continuar</h2>
+              <p class="table-caption">
+                Use seu login e senha cadastrados para acessar o painel Tabajara.
+              </p>
+            </div>
+            <a class="btn btn--secondary" th:href="@{/usuarios/criar}">Criar usuário</a>
+          </div>
+
+          <form th:action="@{/login}" method="post">
+            <div class="form-grid">
+              <div class="field-group">
+                <label for="login">Login</label>
+                <input id="login" name="login" type="text" placeholder="ex: exemplo@tabajara.com" required />
+              </div>
+
+              <div class="field-group">
+                <label for="senha">Senha</label>
+                <input id="senha" name="senha" type="password" placeholder="********" required />
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn--primary" type="submit">Entrar</button>
+              <a class="btn btn--secondary" th:href="@{/}">Voltar para o início</a>
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,36 +1,88 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lista de Fornecedores</title>
-</head>
-<body>
-    <h1>Lista de Fornecedores</h1>
-    <h3><a th:href="@{/fornecedor/criarFornecedores}">Adicionar Fornecedor</a></h3>
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>CNPJ</th>
-            <th>Endereco</th>
-            <th>Telefone</th>
-            <th>Cidade</th>
-            <th>Acoes</th>
-        </tr>
-        <tbody>
-            <tr th:each="fornecedor : ${fornecedores}">
-                <td th:text="${fornecedor.idFornecedor}">ID</td>
-                <td th:text="${fornecedor.nomeFornecedor}">Nome</td>
-                <td th:text="${fornecedor.cpjFornecedor}">CNPJ</td>
-                <td th:text="${fornecedor.enderecoFornecedor}">Endereco</td>
-                <td th:text="${fornecedor.telefoneFornecedor}">Telefone</td>
-                <td th:text="${fornecedor.cidadeFornecedor}">Cidade</td>
-                <td>
-                    <a th:href="@{/fornecedor/editar/{id}(id=${fornecedor.idFornecedor})}">Editar</a>
-                    <a th:href="@{/fornecedor/excluir/{id}(id=${fornecedor.idFornecedor})}">Excluir</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</body>
+    <link rel="stylesheet" th:href="@{/css/app.css}" />
+    <script th:src="@{/js/app.js}" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <div class="brand">
+          <div class="brand__icon">T</div>
+          <div class="brand__text">
+            <strong>Organizações Tabajara</strong>
+            <span>Fornecedores &amp; parcerias</span>
+          </div>
+        </div>
+        <nav class="app-nav" aria-label="Navegação principal">
+          <a class="app-nav__link" th:href="@{/home}">Início</a>
+          <a class="app-nav__link" th:href="@{/produtos/listar}">Produtos</a>
+          <a class="app-nav__link" th:href="@{/fornecedor/listarFornecedores}">Fornecedores</a>
+          <a class="app-nav__link" th:href="@{/login}">Login</a>
+        </nav>
+        <button
+          class="theme-toggle"
+          id="theme-toggle"
+          type="button"
+          aria-label="Alternar tema entre claro e escuro"
+        ></button>
+      </header>
+
+      <main class="app-main">
+        <section class="panel">
+          <div class="panel__header">
+            <div>
+              <h2>Fornecedores ativos</h2>
+              <p class="table-caption">
+                Revise contatos, cidades e CNPJs. Clique em um nome para editar ou removê-lo.
+              </p>
+            </div>
+            <a class="btn btn--primary" th:href="@{/fornecedor/criarFornecedores}">
+              Adicionar fornecedor
+            </a>
+          </div>
+
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nome</th>
+                  <th>CNPJ</th>
+                  <th>Telefone</th>
+                  <th>Cidade</th>
+                  <th>Endereço</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="fornecedor : ${fornecedores}">
+                  <td th:text="${fornecedor.idFornecedor}">ID</td>
+                  <td th:text="${fornecedor.nomeFornecedor}">Nome</td>
+                  <td th:text="${fornecedor.cpjFornecedor}">CNPJ</td>
+                  <td th:text="${fornecedor.telefoneFornecedor}">Telefone</td>
+                  <td th:text="${fornecedor.cidadeFornecedor}">Cidade</td>
+                  <td th:text="${fornecedor.enderecoFornecedor}">Endereço</td>
+                  <td class="table-actions">
+                    <a th:href="@{/fornecedor/editar/{id}(id=${fornecedor.idFornecedor})}">
+                      Editar
+                    </a>
+                    <a
+                      th:href="@{/fornecedor/excluir/{id}(id=${fornecedor.idFornecedor})}"
+                      onclick="return confirm('Deseja mesmo excluir este fornecedor?');"
+                    >
+                      Excluir
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
 </html>

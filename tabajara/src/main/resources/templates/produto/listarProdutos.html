@@ -1,36 +1,85 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lista de Produtos</title>
-</head>
-<body>
-    <h1>Lista de Produtos</h1>
-    <h3><a th:href="@{/produtos/criar}">Adicionar Produto</a></h3>
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Descricao</th>
-            <th>Valor</th>
-            <th>Unidade</th>
-            <th>Marca</th>
-            <th>Acoes</th>
-        </tr>
-        <tbody>
-            <tr th:each="produto : ${produtos}">
-                <td th:text="${produto.idProduto}">ID</td>
-                <td th:text="${produto.descProduto}">Descricao</td>
-                <td th:text="${produto.valorProduto}">Valor</td>
-                <td th:text="${produto.unidadeProduto}">Unidade</td>
-                <td th:text="${produto.marcaProduto}">Marca</td>
-                <td th:text="${produto.fornecedor?.nomeFornecedor}">Fornecedor</td>
-                <td>
+    <link rel="stylesheet" th:href="@{/css/app.css}" />
+    <script th:src="@{/js/app.js}" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <div class="brand">
+          <div class="brand__icon">T</div>
+          <div class="brand__text">
+            <strong>Organizações Tabajara</strong>
+            <span>Catálogo dinâmico</span>
+          </div>
+        </div>
+        <nav class="app-nav" aria-label="Navegação principal">
+          <a class="app-nav__link" th:href="@{/home}">Início</a>
+          <a class="app-nav__link" th:href="@{/produtos/listar}">Produtos</a>
+          <a class="app-nav__link" th:href="@{/fornecedor/listarFornecedores}">Fornecedores</a>
+          <a class="app-nav__link" th:href="@{/login}">Login</a>
+        </nav>
+        <button
+          class="theme-toggle"
+          id="theme-toggle"
+          type="button"
+          aria-label="Alternar tema entre claro e escuro"
+        ></button>
+      </header>
+
+      <main class="app-main">
+        <section class="panel">
+          <div class="panel__header">
+            <div>
+              <h2>Produtos em estoque</h2>
+              <p class="table-caption">
+                Controle unidades, valores e fornecedores com visualização imediata e ações
+                rápidas.
+              </p>
+            </div>
+            <a class="btn btn--primary" th:href="@{/produtos/criar}">Adicionar produto</a>
+          </div>
+
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Descrição</th>
+                  <th>Valor</th>
+                  <th>Unidade</th>
+                  <th>Marca</th>
+                  <th>Fornecedor</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="produto : ${produtos}">
+                  <td th:text="${produto.idProduto}">ID</td>
+                  <td th:text="${produto.descProduto}">Descrição</td>
+                  <td th:text="${produto.valorProduto}">Valor</td>
+                  <td th:text="${produto.unidadeProduto}">Unidade</td>
+                  <td th:text="${produto.marcaProduto}">Marca</td>
+                  <td th:text="${produto.fornecedor?.nomeFornecedor}">Fornecedor</td>
+                  <td class="table-actions">
                     <a th:href="@{/produtos/editar/{id}(id=${produto.idProduto})}">Editar</a>
-                    <a th:href="@{/produtos/excluir/{id}(id=${produto.idProduto})}">Excluir</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</body>
+                    <a
+                      th:href="@{/produtos/excluir/{id}(id=${produto.idProduto})}"
+                      onclick="return confirm('Deseja mesmo excluir este produto?');"
+                    >
+                      Excluir
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
 </html>

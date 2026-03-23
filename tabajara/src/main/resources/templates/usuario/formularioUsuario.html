@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Formulário de Fornecedor</title>
+    <title>Cadastro de Usuário</title>
     <link rel="stylesheet" th:href="@{/css/app.css}" />
     <script th:src="@{/js/app.js}" defer></script>
   </head>
@@ -14,7 +14,7 @@
           <div class="brand__icon">T</div>
           <div class="brand__text">
             <strong>Organizações Tabajara</strong>
-            <span>Fornecedores &amp; parceiros</span>
+            <span>Usuários &amp; acesso</span>
           </div>
         </div>
         <nav class="app-nav" aria-label="Navegação principal">
@@ -35,54 +35,43 @@
         <section class="panel">
           <div class="panel__header">
             <div>
-              <h2>Cadastrar um fornecedor</h2>
+              <h2>Cadastro de usuário</h2>
               <p class="table-caption">
-                Preencha os dados abaixo para manter o cadastro atualizado.
+                Defina o acesso com login, e-mail e senha do colaborador que vai utilizar o
+                sistema.
               </p>
             </div>
-            <a class="btn btn--secondary" th:href="@{/fornecedor/listarFornecedores}"
-              >Voltar para lista</a
-            >
+            <a class="btn btn--secondary" th:href="@{/login}">Voltar ao login</a>
           </div>
 
-          <form
-            th:action="@{/fornecedor/salvarFornecedores}"
-            th:object="${fornecedor}"
-            method="POST"
-          >
-            <input type="hidden" th:field="*{idFornecedor}" />
+          <form th:action="@{/usuarios/salvar}" th:object="${usuario}" method="POST">
+            <input type="hidden" th:field="*{idUsuario}" />
+
             <div class="form-grid">
               <div class="field-group">
-                <label for="nomeFornecedor">Nome do fornecedor</label>
-                <input id="nomeFornecedor" type="text" th:field="*{nomeFornecedor}" />
+                <label for="nomeUsuario">Nome completo</label>
+                <input id="nomeUsuario" type="text" th:field="*{nomeUsuario}" required />
               </div>
 
               <div class="field-group">
-                <label for="cpjFornecedor">CNPJ</label>
-                <input id="cpjFornecedor" type="text" th:field="*{cpjFornecedor}" />
+                <label for="emailUsuario">E-mail corporativo</label>
+                <input id="emailUsuario" type="email" th:field="*{emailUsuario}" required />
               </div>
 
               <div class="field-group">
-                <label for="telefoneFornecedor">Telefone</label>
-                <input id="telefoneFornecedor" type="text" th:field="*{telefoneFornecedor}" />
+                <label for="loginUsuario">Login</label>
+                <input id="loginUsuario" type="text" th:field="*{loginUsuario}" required />
               </div>
 
               <div class="field-group">
-                <label for="cidadeFornecedor">Cidade</label>
-                <input id="cidadeFornecedor" type="text" th:field="*{cidadeFornecedor}" />
-              </div>
-
-              <div class="field-group field-group--full">
-                <label for="enderecoFornecedor">Endereço</label>
-                <input id="enderecoFornecedor" type="text" th:field="*{enderecoFornecedor}" />
+                <label for="senhaUsuario">Senha</label>
+                <input id="senhaUsuario" type="password" th:field="*{senhaUsuario}" required />
               </div>
             </div>
 
             <div class="form-actions">
-              <button class="btn btn--primary" type="submit">Salvar fornecedor</button>
-              <a class="btn btn--secondary" th:href="@{/fornecedor/listarFornecedores}"
-                >Cancelar</a
-              >
+              <button class="btn btn--primary" type="submit">Salvar usuário</button>
+              <a class="btn btn--secondary" th:href="@{/login}">Cancelar</a>
             </div>
           </form>
         </section>

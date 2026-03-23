@@ -1,38 +1,94 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Produto</title>
-</head>
-<body>
-    <h1 style="text-align: center;">Cadastrar Produto</h1>
-    <form th:action="@{/produtos/salvar}" method="POST" th:object="${produto}">
-        <input type="hidden" th:field="*{idProduto}" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulário de Produto</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}" />
+    <script th:src="@{/js/app.js}" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <div class="brand">
+          <div class="brand__icon">T</div>
+          <div class="brand__text">
+            <strong>Organizações Tabajara</strong>
+            <span>Produtos &amp; catálogo</span>
+          </div>
+        </div>
+        <nav class="app-nav" aria-label="Navegação principal">
+          <a class="app-nav__link" th:href="@{/home}">Início</a>
+          <a class="app-nav__link" th:href="@{/produtos/listar}">Produtos</a>
+          <a class="app-nav__link" th:href="@{/fornecedor/listarFornecedores}">Fornecedores</a>
+          <a class="app-nav__link" th:href="@{/login}">Login</a>
+        </nav>
+        <button
+          class="theme-toggle"
+          id="theme-toggle"
+          type="button"
+          aria-label="Alternar tema entre claro e escuro"
+        ></button>
+      </header>
 
-        <label for="descProduto">Descricao:</label>
-        <input id="descProduto" type="text" th:field="*{descProduto}" />
-        <br />
+      <main class="app-main">
+        <section class="panel">
+          <div class="panel__header">
+            <div>
+              <h2>Cadastrar ou editar produto</h2>
+              <p class="table-caption">
+                Atualize descrição, valor, unidade e vínculo com fornecedores sem esforço.
+              </p>
+            </div>
+            <a class="btn btn--secondary" th:href="@{/produtos/listar}">Voltar para lista</a>
+          </div>
 
-        <label for="valorProduto">Valor:</label>
-        <input id="valorProduto" type="text" th:field="*{valorProduto}" />
-        <br />
+          <form th:action="@{/produtos/salvar}" th:object="${produto}" method="POST">
+            <input type="hidden" th:field="*{idProduto}" />
+            <div class="form-grid">
+              <div class="field-group">
+                <label for="descProduto">Descrição</label>
+                <input id="descProduto" type="text" th:field="*{descProduto}" required />
+              </div>
 
-        <label for="unidadeProduto">Unidade:</label>
-        <input id="unidadeProduto" type="text" th:field="*{unidadeProduto}" />
-        <br />
+              <div class="field-group">
+                <label for="valorProduto">Valor</label>
+                <input id="valorProduto" type="text" th:field="*{valorProduto}" required />
+              </div>
 
-        <label for="marcaProduto">Marca:</label>
-        <input id="marcaProduto" type="text" th:field="*{marcaProduto}" />
-        <br />
+              <div class="field-group">
+                <label for="unidadeProduto">Unidade</label>
+                <input id="unidadeProduto" type="text" th:field="*{unidadeProduto}" />
+              </div>
 
-        <label for="fornecedor">Fornecedor:</label>
-        <select name="idFornecedor">
-            <option value="" disabled>Selecione um Fornecedor</option>
-            <option th:each="fornecedor : ${fornecedores}" th:value="${fornecedor.idFornecedor}" th:text="${fornecedor.nomeFornecedor}" th:selected="${idFornecedor == fornecedor.idFornecedor}"></option>
-        </select>
+              <div class="field-group">
+                <label for="marcaProduto">Marca</label>
+                <input id="marcaProduto" type="text" th:field="*{marcaProduto}" />
+              </div>
 
-        <input type="submit" value="Salvar" />
-    </form>
-</body>
+              <div class="field-group field-group--full">
+                <label for="fornecedor">Fornecedor</label>
+                <select id="fornecedor" name="idFornecedor" required>
+                  <option value="" disabled th:selected="${idFornecedor == null}">
+                    Selecione um fornecedor
+                  </option>
+                  <option
+                    th:each="fornecedor : ${fornecedores}"
+                    th:value="${fornecedor.idFornecedor}"
+                    th:text="${fornecedor.nomeFornecedor}"
+                    th:selected="${idFornecedor == fornecedor.idFornecedor}"
+                  ></option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button class="btn btn--primary" type="submit">Salvar produto</button>
+              <a class="btn btn--secondary" th:href="@{/produtos/listar}">Cancelar</a>
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+  </body>
 </html>
