@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cadastro de Usuário</title>
+    <title>Cadastro de Usuario</title>
     <link rel="stylesheet" th:href="@{/css/app.css}" />
     <script th:src="@{/js/app.js}" defer></script>
   </head>
@@ -13,12 +13,12 @@
         <div class="brand">
           <div class="brand__icon">T</div>
           <div class="brand__text">
-            <strong>Organizações Tabajara</strong>
-            <span>Usuários &amp; acesso</span>
+            <strong>Organizacoes Tabajara</strong>
+            <span>Usuarios &amp; acesso</span>
           </div>
         </div>
-        <nav class="app-nav" aria-label="Navegação principal">
-          <a class="app-nav__link" th:href="@{/home}">Início</a>
+        <nav class="app-nav" aria-label="Navegacao principal">
+          <a class="app-nav__link" th:href="@{/home}">Inicio</a>
           <a class="app-nav__link" th:href="@{/produtos/listar}">Produtos</a>
           <a class="app-nav__link" th:href="@{/fornecedor/listarFornecedores}">Fornecedores</a>
           <a class="app-nav__link" th:href="@{/login}">Login</a>
@@ -35,7 +35,7 @@
         <section class="panel">
           <div class="panel__header">
             <div>
-              <h2>Cadastro de usuário</h2>
+              <h2>Cadastro de usuario</h2>
               <p class="table-caption">
                 Defina o acesso com login, e-mail e senha do colaborador que vai utilizar o
                 sistema.
@@ -43,6 +43,8 @@
             </div>
             <a class="btn btn--secondary" th:href="@{/login}">Voltar ao login</a>
           </div>
+
+          <div class="alert alert--error" th:if="${erroCadastro}" th:text="${erroCadastro}"></div>
 
           <form th:action="@{/usuarios/salvar}" th:object="${usuario}" method="POST">
             <input type="hidden" th:field="*{idUsuario}" />
@@ -70,7 +72,7 @@
             </div>
 
             <div class="form-actions">
-              <button class="btn btn--primary" type="submit">Salvar usuário</button>
+              <button class="btn btn--primary" type="submit">Salvar usuario</button>
               <a class="btn btn--secondary" th:href="@{/login}">Cancelar</a>
             </div>
           </form>

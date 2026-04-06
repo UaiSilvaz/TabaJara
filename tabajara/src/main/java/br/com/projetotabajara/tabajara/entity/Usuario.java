@@ -1,5 +1,7 @@
 package br.com.projetotabajara.tabajara.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,8 +32,16 @@ public class Usuario {
     @Column(nullable = false)
     private String senhaUsuario;
 
-    @Column(nullable = false, length = 40, unique = true)
+    @Column(nullable = false, length = 200, unique = true)
     private String loginUsuario;
 
     private String role = "ROLE_USER";
+
+    // NOVOS CAMPOS PARA RECUPERAÇÃO DE SENHA
+
+    // TOKEN UNICO PARA REDEFINIR SENHA
+    private String resetToken;
+
+    // data de expiração do token
+    private LocalDateTime tokenExpiration;
 }

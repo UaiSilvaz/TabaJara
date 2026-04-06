@@ -34,9 +34,15 @@ public class UsuarioController {
     }
 
     @PostMapping("/salvar")
-    public String salvar(Usuario usuario) {
-        usuarioService.save(usuario);
-        return "redirect:/login";
+    public String salvar(Usuario usuario, Model model) {
+        try {
+            usuarioService.save(usuario);
+            return "redirect:/login?cadastroSucesso";
+        } catch (IllegalArgumentException ex) {
+            model.addAttribute("usuario", usuario);
+            model.addAttribute("erroCadastro", ex.getMessage());
+            return "usuario/formularioUsuario";
+        }
     }
 
 }

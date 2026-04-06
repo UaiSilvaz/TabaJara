@@ -388,6 +388,25 @@ tbody tr:last-child td {
   color: var(--muted);
 }
 
+.alert {
+  margin-bottom: 18px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--outline);
+  background: var(--surface-strong);
+  color: var(--text);
+}
+
+.alert--error {
+  border-color: rgba(225, 114, 94, 0.45);
+  background: rgba(125, 45, 35, 0.18);
+}
+
+.alert--success {
+  border-color: rgba(110, 180, 126, 0.45);
+  background: rgba(45, 105, 52, 0.18);
+}
+
 .status-chip {
   padding: 4px 10px;
   border-radius: 999px;

@@ -13,12 +13,12 @@
         <div class="brand">
           <div class="brand__icon">T</div>
           <div class="brand__text">
-            <strong>Organizações Tabajara</strong>
+            <strong>Organizacoes Tabajara</strong>
             <span>Acesso seguro</span>
           </div>
         </div>
-        <nav class="app-nav" aria-label="Navegação primária">
-          <a class="app-nav__link" th:href="@{/}">Início</a>
+        <nav class="app-nav" aria-label="Navegacao primaria">
+          <a class="app-nav__link" th:href="@{/}">Inicio</a>
         </nav>
         <button
           class="theme-toggle"
@@ -32,19 +32,36 @@
         <section class="panel">
           <div class="panel__header">
             <div>
-              <h2>Faça login para continuar</h2>
+              <h2>Faca login para continuar</h2>
               <p class="table-caption">
-                Use seu login e senha cadastrados para acessar o painel Tabajara.
+                Use seu login ou e-mail com a senha cadastrada para acessar o painel Tabajara.
               </p>
             </div>
-            <a class="btn btn--secondary" th:href="@{/usuarios/criar}">Criar usuário</a>
+            <a class="btn btn--secondary" th:href="@{/usuarios/criar}">Criar usuario</a>
           </div>
+
+          <div class="alert alert--success" th:if="${param.cadastroSucesso}">
+            Cadastro realizado com sucesso. Voce ja pode entrar no sistema.
+          </div>
+
+          <div class="alert alert--error" th:if="${param.error}">
+            Nao foi possivel entrar. Confira se voce digitou o login ou e-mail e a senha
+            corretamente.
+          </div>
+
+          <div class="alert" th:if="${param.logout}">Sessao encerrada com sucesso.</div>
 
           <form th:action="@{/login}" method="post">
             <div class="form-grid">
               <div class="field-group">
-                <label for="login">Login</label>
-                <input id="login" name="login" type="text" placeholder="ex: exemplo@tabajara.com" required />
+                <label for="login">Login ou e-mail</label>
+                <input
+                  id="login"
+                  name="login"
+                  type="text"
+                  placeholder="ex: joao ou joao@tabajara.com"
+                  required
+                />
               </div>
 
               <div class="field-group">
@@ -54,7 +71,7 @@
             </div>
             <div class="form-actions">
               <button class="btn btn--primary" type="submit">Entrar</button>
-              <a class="btn btn--secondary" th:href="@{/}">Voltar para o início</a>
+              <a class="btn btn--secondary" th:href="@{/}">Voltar para o inicio</a>
             </div>
           </form>
         </section>

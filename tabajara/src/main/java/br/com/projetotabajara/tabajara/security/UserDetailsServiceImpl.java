@@ -1,6 +1,13 @@
 package br.com.projetotabajara.tabajara.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import br.com.projetotabajara.tabajara.entity.Usuario;
+import br.com.projetotabajara.tabajara.repository.UsuarioRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -10,9 +17,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        Usuario usuario = usuarioRepository.findByLoginUsuario(login)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado: " + login));
-        return new UserDetailsImpl(usuário);
-    }
+        String loginNormalizado = login == null ? "" : login.trim();
 
+        Usuario usuario = usuarioRepository
+                .findByLoginUsuarioIgnoreCaseOrEmailUsuarioIgnoreCase(loginNormalizado, loginNormalizado)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario nao encontrado: " + loginNormalizado));
+
+        return new UserDetailsImpl(usuario);
+    }
 }
