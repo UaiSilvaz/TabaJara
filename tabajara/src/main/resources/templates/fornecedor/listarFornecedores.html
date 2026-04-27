@@ -1,51 +1,54 @@
-<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lista de Fornecedores</title>
-    <link rel="stylesheet" th:href="@{/css/app.css}" />
-    <script th:src="@{/js/app.js}" defer></script>
+    <title>Tabajara | Fornecedores</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" th:href="@{/css/app.css(v=20260414)}" />
+    <script th:src="@{/js/app.js(v=20260414)}" defer></script>
   </head>
   <body>
-    <div class="app-shell">
-      <header class="app-header">
-        <div class="brand">
-          <div class="brand__icon">T</div>
-          <div class="brand__text">
-            <strong>Organizações Tabajara</strong>
-            <span>Fornecedores &amp; parcerias</span>
+    <div class="site-shell">
+      <header class="site-header">
+        <div class="site-nav">
+          <a class="brand" th:href="@{/home}">
+            <span class="brand__icon"><i class="fa-solid fa-bolt"></i></span>
+            <span>Tabajara</span>
+          </a>
+
+          <button class="nav-toggle" type="button" data-nav-toggle aria-controls="primary-nav" aria-expanded="false" aria-label="Abrir menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+
+          <nav class="nav-links" id="primary-nav" data-nav-links aria-label="Navegacao principal">
+            <a class="nav-link" th:href="@{/home}">Home</a>
+            <a class="nav-link" th:href="@{/produtos/listar}">Produtos</a>
+            <a class="nav-link" th:href="@{/fornecedor/listarFornecedores}" aria-current="page">Fornecedores</a>
+          </nav>
+
+          <div class="nav-actions">
+            <form th:action="@{/logout}" method="post">
+              <button class="btn btn-secondary" type="submit"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</button>
+            </form>
           </div>
         </div>
-        <nav class="app-nav" aria-label="Navegação principal">
-          <a class="app-nav__link" th:href="@{/home}">Início</a>
-          <a class="app-nav__link" th:href="@{/produtos/listar}">Produtos</a>
-          <a class="app-nav__link" th:href="@{/fornecedor/listarFornecedores}">Fornecedores</a>
-          <a class="app-nav__link" th:href="@{/login}">Login</a>
-        </nav>
-        <button
-          class="theme-toggle"
-          id="theme-toggle"
-          type="button"
-          aria-label="Alternar tema entre claro e escuro"
-        ></button>
       </header>
 
-      <main class="app-main">
-        <section class="panel">
-          <div class="panel__header">
+      <main class="main-wrap">
+        <section class="table-card">
+          <div class="table-header">
             <div>
-              <h2>Fornecedores ativos</h2>
-              <p class="table-caption">
-                Revise contatos, cidades e CNPJs. Clique em um nome para editar ou removê-lo.
-              </p>
+              <h1 class="page-title">Fornecedores</h1>
+              <p class="page-subtitle">Base de parceiros com dados de contato e localizacao.</p>
             </div>
-            <a class="btn btn--primary" th:href="@{/fornecedor/criarFornecedores}">
-              Adicionar fornecedor
-            </a>
+            <a class="btn btn-primary" th:href="@{/fornecedor/criarFornecedores}"><i class="fa-solid fa-plus"></i> Novo fornecedor</a>
           </div>
 
-          <div class="table-responsive">
+          <div class="table-wrap">
             <table>
               <thead>
                 <tr>
@@ -54,28 +57,28 @@
                   <th>CNPJ</th>
                   <th>Telefone</th>
                   <th>Cidade</th>
-                  <th>Endereço</th>
-                  <th>Ações</th>
+                  <th>Endereco</th>
+                  <th>Acoes</th>
                 </tr>
               </thead>
               <tbody>
+                <tr th:if="${#lists.isEmpty(fornecedores)}">
+                  <td colspan="7">Nenhum fornecedor cadastrado.</td>
+                </tr>
                 <tr th:each="fornecedor : ${fornecedores}">
-                  <td th:text="${fornecedor.idFornecedor}">ID</td>
-                  <td th:text="${fornecedor.nomeFornecedor}">Nome</td>
-                  <td th:text="${fornecedor.cpjFornecedor}">CNPJ</td>
-                  <td th:text="${fornecedor.telefoneFornecedor}">Telefone</td>
+                  <td th:text="${fornecedor.idFornecedor}">1</td>
+                  <td th:text="${fornecedor.nomeFornecedor}">Fornecedor</td>
+                  <td th:text="${fornecedor.cpjFornecedor}">00.000.000/0000-00</td>
+                  <td th:text="${fornecedor.telefoneFornecedor}">(00) 0000-0000</td>
                   <td th:text="${fornecedor.cidadeFornecedor}">Cidade</td>
-                  <td th:text="${fornecedor.enderecoFornecedor}">Endereço</td>
-                  <td class="table-actions">
-                    <a th:href="@{/fornecedor/editar/{id}(id=${fornecedor.idFornecedor})}">
-                      Editar
-                    </a>
-                    <a
-                      th:href="@{/fornecedor/excluir/{id}(id=${fornecedor.idFornecedor})}"
-                      onclick="return confirm('Deseja mesmo excluir este fornecedor?');"
-                    >
-                      Excluir
-                    </a>
+                  <td th:text="${fornecedor.enderecoFornecedor}">Endereco</td>
+                  <td>
+                    <div class="table-actions">
+                      <a class="btn btn-secondary" th:href="@{/fornecedor/editar/{id}(id=${fornecedor.idFornecedor})}"><i class="fa-regular fa-pen-to-square"></i> Editar</a>
+                      <form th:action="@{/fornecedor/excluir/{id}(id=${fornecedor.idFornecedor})}" method="post" onsubmit="return confirm('Deseja excluir este fornecedor?');">
+                        <button class="btn btn-secondary" type="submit"><i class="fa-regular fa-trash-can"></i> Excluir</button>
+                      </form>
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -83,6 +86,19 @@
           </div>
         </section>
       </main>
+
+      <footer class="site-footer">
+        <div class="footer-inner">
+          <span>© 2026 Tabajara. Todos os direitos reservados.</span>
+          <div class="footer-links">
+            <a th:href="@{/home}">Home</a>
+            <a th:href="@{/produtos/listar}">Produtos</a>
+            <a th:href="@{/fornecedor/criarFornecedores}">Novo fornecedor</a>
+          </div>
+        </div>
+      </footer>
     </div>
   </body>
 </html>
+
+

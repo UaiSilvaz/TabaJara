@@ -1,83 +1,155 @@
-<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cadastro de Usuario</title>
-    <link rel="stylesheet" th:href="@{/css/app.css}" />
-    <script th:src="@{/js/app.js}" defer></script>
+    <title>Tabajara | Cadastro</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" th:href="@{/css/app.css(v=20260414)}" />
+    <script th:src="@{/js/app.js(v=20260414)}" defer></script>
   </head>
   <body>
-    <div class="app-shell">
-      <header class="app-header">
-        <div class="brand">
-          <div class="brand__icon">T</div>
-          <div class="brand__text">
-            <strong>Organizacoes Tabajara</strong>
-            <span>Usuarios &amp; acesso</span>
+    <div class="site-shell">
+      <header class="site-header">
+        <div class="site-nav">
+          <a class="brand" th:href="@{/}">
+            <span class="brand__icon"><i class="fa-solid fa-bolt"></i></span>
+            <span>Tabajara</span>
+          </a>
+
+          <button class="nav-toggle" type="button" data-nav-toggle aria-controls="primary-nav" aria-expanded="false" aria-label="Abrir menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+
+          <nav class="nav-links" id="primary-nav" data-nav-links aria-label="Navegacao principal">
+            <a class="nav-link" th:href="@{/}">Inicio</a>
+            <a class="nav-link" th:href="@{/login}">Login</a>
+            <a class="nav-link" th:href="@{/esqueci-senha}">Recuperar senha</a>
+          </nav>
+
+          <div class="nav-actions">
+            <a class="btn btn-primary" th:href="@{/login}"><i class="fa-solid fa-right-to-bracket"></i> Ja tenho conta</a>
           </div>
         </div>
-        <nav class="app-nav" aria-label="Navegacao principal">
-          <a class="app-nav__link" th:href="@{/home}">Inicio</a>
-          <a class="app-nav__link" th:href="@{/produtos/listar}">Produtos</a>
-          <a class="app-nav__link" th:href="@{/fornecedor/listarFornecedores}">Fornecedores</a>
-          <a class="app-nav__link" th:href="@{/login}">Login</a>
-        </nav>
-        <button
-          class="theme-toggle"
-          id="theme-toggle"
-          type="button"
-          aria-label="Alternar tema entre claro e escuro"
-        ></button>
       </header>
 
-      <main class="app-main">
-        <section class="panel">
-          <div class="panel__header">
-            <div>
-              <h2>Cadastro de usuario</h2>
-              <p class="table-caption">
-                Defina o acesso com login, e-mail e senha do colaborador que vai utilizar o
-                sistema.
-              </p>
-            </div>
-            <a class="btn btn--secondary" th:href="@{/login}">Voltar ao login</a>
+      <main class="main-wrap auth-layout">
+        <section class="auth-card" aria-labelledby="titulo-cadastro">
+          <div class="auth-header">
+            <h1 class="auth-title" id="titulo-cadastro">Criar conta</h1>
+            <p class="auth-subtitle">Preencha os dados para liberar acesso ao sistema.</p>
           </div>
 
-          <div class="alert alert--error" th:if="${erroCadastro}" th:text="${erroCadastro}"></div>
+          <div class="alert alert-error" th:if="${erroCadastro}" th:text="${erroCadastro}"></div>
 
-          <form th:action="@{/usuarios/salvar}" th:object="${usuario}" method="POST">
+          <form th:action="@{/usuarios/salvar}" th:object="${usuario}" method="post" class="js-validate" data-loading-text="Criando conta..." novalidate>
             <input type="hidden" th:field="*{idUsuario}" />
 
             <div class="form-grid">
-              <div class="field-group">
+              <div class="field field--full">
                 <label for="nomeUsuario">Nome completo</label>
-                <input id="nomeUsuario" type="text" th:field="*{nomeUsuario}" required />
+                <div class="input-wrap">
+                  <i class="fa-regular fa-id-card input-icon"></i>
+                  <input id="nomeUsuario" th:field="*{nomeUsuario}" type="text" class="has-icon" required minlength="3" aria-label="Nome completo" />
+                </div>
               </div>
 
-              <div class="field-group">
-                <label for="emailUsuario">E-mail corporativo</label>
-                <input id="emailUsuario" type="email" th:field="*{emailUsuario}" required />
+              <div class="field">
+                <label for="emailUsuario">Email</label>
+                <div class="input-wrap">
+                  <i class="fa-regular fa-envelope input-icon"></i>
+                  <input id="emailUsuario" th:field="*{emailUsuario}" type="email" class="has-icon" required aria-label="Email" />
+                </div>
               </div>
 
-              <div class="field-group">
+              <div class="field">
                 <label for="loginUsuario">Login</label>
-                <input id="loginUsuario" type="text" th:field="*{loginUsuario}" required />
+                <div class="input-wrap">
+                  <i class="fa-regular fa-user input-icon"></i>
+                  <input id="loginUsuario" th:field="*{loginUsuario}" type="text" class="has-icon" required minlength="3" aria-label="Login" />
+                </div>
               </div>
 
-              <div class="field-group">
+              <div class="field">
                 <label for="senhaUsuario">Senha</label>
-                <input id="senhaUsuario" type="password" th:field="*{senhaUsuario}" required />
+                <div class="input-wrap">
+                  <i class="fa-solid fa-lock input-icon"></i>
+                  <input
+                    id="senhaUsuario"
+                    th:field="*{senhaUsuario}"
+                    type="password"
+                    class="has-icon"
+                    required
+                    minlength="6"
+                    aria-label="Senha"
+                    data-strength-fill="cadastro-senha-fill"
+                    data-strength-label="cadastro-senha-label"
+                  />
+                  <button class="password-toggle" type="button" data-toggle-password="senhaUsuario" aria-label="Mostrar senha">
+                    <i class="fa-regular fa-eye"></i>
+                  </button>
+                </div>
+                <div class="password-meter" aria-hidden="true">
+                  <div class="password-meter__fill" id="cadastro-senha-fill"></div>
+                </div>
+                <div class="password-meter__label" id="cadastro-senha-label">Forca da senha: fraca</div>
+              </div>
+
+              <div class="field">
+                <label for="confirmarSenha">Confirmar senha</label>
+                <div class="input-wrap">
+                  <i class="fa-solid fa-lock input-icon"></i>
+                  <input
+                    id="confirmarSenha"
+                    name="confirmarSenha"
+                    type="password"
+                    class="has-icon"
+                    required
+                    data-match-with="senhaUsuario"
+                    minlength="6"
+                    aria-label="Confirmar senha"
+                  />
+                  <button class="password-toggle" type="button" data-toggle-password="confirmarSenha" aria-label="Mostrar senha">
+                    <i class="fa-regular fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="field field--full">
+                <label class="checkbox-line" for="aceiteTermos">
+                  <input id="aceiteTermos" name="aceiteTermos" type="checkbox" required aria-label="Aceito os termos" />
+                  <span>Li e aceito os termos de uso e politica de privacidade.</span>
+                </label>
               </div>
             </div>
 
+            <div class="inline-options">
+              <a class="btn-link" th:href="@{/login}">Ja tenho uma conta</a>
+            </div>
+
             <div class="form-actions">
-              <button class="btn btn--primary" type="submit">Salvar usuario</button>
-              <a class="btn btn--secondary" th:href="@{/login}">Cancelar</a>
+              <button class="btn btn-primary" type="submit"><i class="fa-solid fa-user-check"></i> Cadastrar</button>
+              <a class="btn btn-secondary" th:href="@{/login}">Cancelar</a>
             </div>
           </form>
         </section>
       </main>
+
+      <footer class="site-footer">
+        <div class="footer-inner">
+          <span>© 2026 Tabajara. Todos os direitos reservados.</span>
+          <div class="footer-links">
+            <a th:href="@{/}">Inicio</a>
+            <a th:href="@{/login}">Login</a>
+            <a th:href="@{/esqueci-senha}">Recuperar senha</a>
+          </div>
+        </div>
+      </footer>
     </div>
   </body>
 </html>
+
+

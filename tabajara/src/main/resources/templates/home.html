@@ -1,88 +1,85 @@
-<!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+﻿<!doctype html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Organizações Tabajara</title>
-    <link rel="stylesheet" th:href="@{/css/app.css}" />
-    <script th:src="@{/js/app.js}" defer></script>
+    <title>Tabajara | Home</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" th:href="@{/css/app.css(v=20260414)}" />
+    <script th:src="@{/js/app.js(v=20260414)}" defer></script>
   </head>
   <body>
-    <div class="app-shell">
-      <header class="app-header">
-        <div class="brand">
-          <div class="brand__icon">T</div>
-          <div class="brand__text">
-            <strong>Organizações Tabajara</strong>
-            <span>Controle estratégico</span>
+    <div class="site-shell">
+      <header class="site-header">
+        <div class="site-nav">
+          <a class="brand" th:href="@{/home}">
+            <span class="brand__icon"><i class="fa-solid fa-bolt"></i></span>
+            <span>Tabajara</span>
+          </a>
+
+          <button class="nav-toggle" type="button" data-nav-toggle aria-controls="primary-nav" aria-expanded="false" aria-label="Abrir menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+
+          <nav class="nav-links" id="primary-nav" data-nav-links aria-label="Navegacao principal">
+            <a class="nav-link" th:href="@{/home}" aria-current="page">Home</a>
+            <a class="nav-link" th:href="@{/produtos/listar}">Produtos</a>
+            <a class="nav-link" th:href="@{/fornecedor/listarFornecedores}">Fornecedores</a>
+            <a class="nav-link" th:href="@{/usuarios/criar}">Usuarios</a>
+          </nav>
+
+          <div class="nav-actions">
+            <form th:action="@{/logout}" method="post">
+              <button class="btn btn-secondary" type="submit"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</button>
+            </form>
           </div>
         </div>
-        <nav class="app-nav" aria-label="Navegação primária">
-          <a class="app-nav__link" th:href="@{/home}" aria-current="page">Início</a>
-          <a class="app-nav__link" th:href="@{/produtos/listar}">Produtos</a>
-          <a class="app-nav__link" th:href="@{/fornecedor/listarFornecedores}">
-            Fornecedores
-          </a>
-          <a class="app-nav__link" th:href="@{/usuarios/criar}">Usuários</a>
-        </nav>
-        <button
-          class="theme-toggle"
-          id="theme-toggle"
-          type="button"
-          aria-label="Alternar tema entre claro e escuro"
-        ></button>
       </header>
 
-      <main class="app-main">
-        <section class="hero">
-          <h1>Painel central da Tabajara</h1>
-          <p>
-            Aqui começam as telas operacionais do sistema. Acesse os cadastros, acompanhe os
-            fornecedores e mantenha o catálogo de produtos organizado a partir de um único ponto.
+      <main class="main-wrap">
+        <section class="page-card">
+          <h1 class="page-title">Painel central</h1>
+          <p class="page-subtitle">
+            Gerencie cadastros internos com navegacao rapida e interface padronizada.
           </p>
 
           <div class="hero-actions">
-            <a class="btn btn--primary" th:href="@{/produtos/listar}">Gerenciar produtos</a>
-            <a class="btn btn--secondary" th:href="@{/fornecedor/listarFornecedores}">
-              Gerenciar fornecedores
-            </a>
+            <a class="btn btn-primary" th:href="@{/produtos/listar}"><i class="fa-solid fa-box"></i> Gerenciar produtos</a>
+            <a class="btn btn-secondary" th:href="@{/fornecedor/listarFornecedores}"><i class="fa-solid fa-truck"></i> Gerenciar fornecedores</a>
           </div>
 
-          <div class="hero-grid">
-            <article class="card">
-              <p class="tag">Produtos</p>
-              <h2 class="card__title">Catálogo inteligente</h2>
-              <p class="card__text">
-                Visualize e edite o portfólio de produtos em uma tabela moderna, com ações
-                rápidas e marcações claras.
-              </p>
-              <a class="card__cta" th:href="@{/produtos/listar}">Abrir lista</a>
+          <div class="dashboard-grid">
+            <article class="stat-card">
+              <p class="stat-card__label">Catalogo</p>
+              <p class="stat-card__value">Produtos com acao de edicao e exclusao</p>
             </article>
-
-            <article class="card">
-              <p class="tag">Fornecedores</p>
-              <h2 class="card__title">Parceiros confiáveis</h2>
-              <p class="card__text">
-                Tenha controle total sobre contatos, CNPJs e cidades. Cadastre, edite ou
-                remova fornecedores sem sair do ritmo.
-              </p>
-              <a class="card__cta" th:href="@{/fornecedor/listarFornecedores}">
-                Ver fornecedores
-              </a>
+            <article class="stat-card">
+              <p class="stat-card__label">Base</p>
+              <p class="stat-card__value">Fornecedores com contatos e cidade</p>
             </article>
-
-            <article class="card">
-              <p class="tag">Usuários</p>
-              <h2 class="card__title">Acesso da equipe</h2>
-              <p class="card__text">
-                Cadastre novos usuários para liberar acesso ao sistema e manter a operação
-                organizada.
-              </p>
-              <a class="card__cta" th:href="@{/usuarios/criar}">Criar usuário</a>
+            <article class="stat-card">
+              <p class="stat-card__label">Acesso</p>
+              <p class="stat-card__value">Cadastro de novos usuarios da equipe</p>
             </article>
           </div>
         </section>
       </main>
+
+      <footer class="site-footer">
+        <div class="footer-inner">
+          <span>© 2026 Tabajara. Todos os direitos reservados.</span>
+          <div class="footer-links">
+            <a th:href="@{/home}">Home</a>
+            <a th:href="@{/produtos/listar}">Produtos</a>
+            <a th:href="@{/fornecedor/listarFornecedores}">Fornecedores</a>
+          </div>
+        </div>
+      </footer>
     </div>
   </body>
 </html>
+
+

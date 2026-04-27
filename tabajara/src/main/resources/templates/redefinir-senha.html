@@ -1,0 +1,120 @@
+﻿<!doctype html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tabajara | Redefinir senha</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" th:href="@{/css/app.css(v=20260414)}" />
+    <script th:src="@{/js/app.js(v=20260414)}" defer></script>
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="site-header">
+        <div class="site-nav">
+          <a class="brand" th:href="@{/}">
+            <span class="brand__icon"><i class="fa-solid fa-bolt"></i></span>
+            <span>Tabajara</span>
+          </a>
+
+          <button class="nav-toggle" type="button" data-nav-toggle aria-controls="primary-nav" aria-expanded="false" aria-label="Abrir menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+
+          <nav class="nav-links" id="primary-nav" data-nav-links aria-label="Navegacao principal">
+            <a class="nav-link" th:href="@{/}">Inicio</a>
+            <a class="nav-link" th:href="@{/login}">Login</a>
+            <a class="nav-link" th:href="@{/esqueci-senha}">Recuperar senha</a>
+          </nav>
+
+          <div class="nav-actions">
+            <a class="btn btn-secondary" th:href="@{/login}"><i class="fa-solid fa-arrow-left"></i> Voltar ao login</a>
+          </div>
+        </div>
+      </header>
+
+      <main class="main-wrap auth-layout">
+        <section class="auth-card" aria-labelledby="titulo-redefinir">
+          <div class="auth-header">
+            <h1 class="auth-title" id="titulo-redefinir">Definir nova senha</h1>
+            <p class="auth-subtitle">Crie uma senha forte e confirme para concluir.</p>
+          </div>
+
+          <div class="alert alert-error" th:if="${erro}" th:text="${erro}"></div>
+
+          <form th:action="@{/redefinir-senha}" method="post" class="js-validate" data-loading-text="Salvando senha..." novalidate>
+            <input type="hidden" name="token" th:value="${token}" />
+
+            <div class="form-grid">
+              <div class="field field--full">
+                <label for="senha">Nova senha</label>
+                <div class="input-wrap">
+                  <i class="fa-solid fa-lock input-icon"></i>
+                  <input
+                    id="senha"
+                    name="senha"
+                    type="password"
+                    class="has-icon"
+                    required
+                    minlength="6"
+                    aria-label="Nova senha"
+                    data-strength-fill="reset-senha-fill"
+                    data-strength-label="reset-senha-label"
+                  />
+                  <button class="password-toggle" type="button" data-toggle-password="senha" aria-label="Mostrar senha">
+                    <i class="fa-regular fa-eye"></i>
+                  </button>
+                </div>
+                <div class="password-meter" aria-hidden="true">
+                  <div class="password-meter__fill" id="reset-senha-fill"></div>
+                </div>
+                <div class="password-meter__label" id="reset-senha-label">Forca da senha: fraca</div>
+              </div>
+
+              <div class="field field--full">
+                <label for="confirmarSenha">Confirmar nova senha</label>
+                <div class="input-wrap">
+                  <i class="fa-solid fa-lock input-icon"></i>
+                  <input
+                    id="confirmarSenha"
+                    name="confirmarSenha"
+                    type="password"
+                    class="has-icon"
+                    required
+                    minlength="6"
+                    aria-label="Confirmar nova senha"
+                    data-match-with="senha"
+                  />
+                  <button class="password-toggle" type="button" data-toggle-password="confirmarSenha" aria-label="Mostrar senha">
+                    <i class="fa-regular fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit"><i class="fa-solid fa-key"></i> Atualizar senha</button>
+              <a class="btn btn-secondary" th:href="@{/login}">Cancelar</a>
+            </div>
+          </form>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="footer-inner">
+          <span>© 2026 Tabajara. Todos os direitos reservados.</span>
+          <div class="footer-links">
+            <a th:href="@{/}">Inicio</a>
+            <a th:href="@{/login}">Login</a>
+            <a th:href="@{/esqueci-senha}">Recuperar senha</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
+
+

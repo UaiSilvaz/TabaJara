@@ -1,38 +1,82 @@
-<!doctype html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+﻿<!doctype html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tabajara | Inicio</title>
-    <link rel="stylesheet" th:href="@{/css/app.css}" />
-    <script th:src="@{/js/app.js}" defer></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" th:href="@{/css/app.css(v=20260414)}" />
+    <script th:src="@{/js/app.js(v=20260414)}" defer></script>
   </head>
   <body>
-    <div class="app-shell">
-      <header class="app-header">
-        <div class="brand">
-          <div class="brand__icon">T</div>
-          <div class="brand__text">
-            <strong>Organizacoes Tabajara</strong>
-            <span>Bem-vindo</span>
+    <div class="site-shell">
+      <header class="site-header">
+        <div class="site-nav">
+          <a class="brand" th:href="@{/}">
+            <span class="brand__icon"><i class="fa-solid fa-bolt"></i></span>
+            <span>Tabajara</span>
+          </a>
+
+          <button class="nav-toggle" type="button" data-nav-toggle aria-controls="primary-nav" aria-expanded="false" aria-label="Abrir menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+
+          <nav class="nav-links" id="primary-nav" data-nav-links aria-label="Navegacao principal">
+            <a class="nav-link" th:href="@{/}" aria-current="page">Inicio</a>
+            <a class="nav-link" th:href="@{/login}">Entrar</a>
+            <a class="nav-link" th:href="@{/usuarios/criar}">Criar conta</a>
+          </nav>
+
+          <div class="nav-actions">
+            <a class="btn btn-primary" th:href="@{/login}"><i class="fa-solid fa-right-to-bracket"></i> Entrar</a>
           </div>
         </div>
       </header>
 
-      <main class="app-main">
-        <section class="hero">
-          <h1>Controle completo, sem complicacao</h1>
-          <p>
-            Inicie sua jornada pelos produtos e fornecedores da Tabajara. Acesse o sistema para
-            criar, editar e visualizar os dados do dia a dia.
+      <main class="main-wrap">
+        <section class="page-card">
+          <h1 class="page-title">Gestao inteligente para produtos e fornecedores</h1>
+          <p class="page-subtitle">
+            Centralize cadastro, consulta e operacao da sua equipe em um fluxo simples, rapido e seguro.
           </p>
 
           <div class="hero-actions">
-            <a class="btn btn--primary" th:href="@{/login}">Acessar o sistema</a>
-            <a class="btn btn--primary" th:href="@{/usuarios/criar}">Registrar novo usuario</a>
+            <a class="btn btn-primary" th:href="@{/login}"><i class="fa-solid fa-lock"></i> Acessar sistema</a>
+            <a class="btn btn-secondary" th:href="@{/usuarios/criar}"><i class="fa-solid fa-user-plus"></i> Criar conta</a>
+          </div>
+
+          <div class="dashboard-grid">
+            <article class="stat-card">
+              <p class="stat-card__label">Produtos</p>
+              <p class="stat-card__value">Catalogo completo</p>
+            </article>
+            <article class="stat-card">
+              <p class="stat-card__label">Fornecedores</p>
+              <p class="stat-card__value">Relacionamento ativo</p>
+            </article>
+            <article class="stat-card">
+              <p class="stat-card__label">Seguranca</p>
+              <p class="stat-card__value">Acesso com autenticacao</p>
+            </article>
           </div>
         </section>
       </main>
+
+      <footer class="site-footer">
+        <div class="footer-inner">
+          <span>© 2026 Tabajara. Todos os direitos reservados.</span>
+          <div class="footer-links">
+            <a th:href="@{/}">Inicio</a>
+            <a th:href="@{/login}">Login</a>
+            <a th:href="@{/usuarios/criar}">Cadastro</a>
+          </div>
+        </div>
+      </footer>
     </div>
   </body>
 </html>
+
+

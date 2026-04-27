@@ -1,92 +1,98 @@
-<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Formulário de Fornecedor</title>
-    <link rel="stylesheet" th:href="@{/css/app.css}" />
-    <script th:src="@{/js/app.js}" defer></script>
+    <title>Tabajara | Fornecedor</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" th:href="@{/css/app.css(v=20260414)}" />
+    <script th:src="@{/js/app.js(v=20260414)}" defer></script>
   </head>
   <body>
-    <div class="app-shell">
-      <header class="app-header">
-        <div class="brand">
-          <div class="brand__icon">T</div>
-          <div class="brand__text">
-            <strong>Organizações Tabajara</strong>
-            <span>Fornecedores &amp; parceiros</span>
+    <div class="site-shell">
+      <header class="site-header">
+        <div class="site-nav">
+          <a class="brand" th:href="@{/home}">
+            <span class="brand__icon"><i class="fa-solid fa-bolt"></i></span>
+            <span>Tabajara</span>
+          </a>
+
+          <button class="nav-toggle" type="button" data-nav-toggle aria-controls="primary-nav" aria-expanded="false" aria-label="Abrir menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+
+          <nav class="nav-links" id="primary-nav" data-nav-links aria-label="Navegacao principal">
+            <a class="nav-link" th:href="@{/home}">Home</a>
+            <a class="nav-link" th:href="@{/produtos/listar}">Produtos</a>
+            <a class="nav-link" th:href="@{/fornecedor/listarFornecedores}" aria-current="page">Fornecedores</a>
+          </nav>
+
+          <div class="nav-actions">
+            <form th:action="@{/logout}" method="post">
+              <button class="btn btn-secondary" type="submit"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</button>
+            </form>
           </div>
         </div>
-        <nav class="app-nav" aria-label="Navegação principal">
-          <a class="app-nav__link" th:href="@{/home}">Início</a>
-          <a class="app-nav__link" th:href="@{/produtos/listar}">Produtos</a>
-          <a class="app-nav__link" th:href="@{/fornecedor/listarFornecedores}">Fornecedores</a>
-          <a class="app-nav__link" th:href="@{/login}">Login</a>
-        </nav>
-        <button
-          class="theme-toggle"
-          id="theme-toggle"
-          type="button"
-          aria-label="Alternar tema entre claro e escuro"
-        ></button>
       </header>
 
-      <main class="app-main">
-        <section class="panel">
-          <div class="panel__header">
-            <div>
-              <h2>Cadastrar um fornecedor</h2>
-              <p class="table-caption">
-                Preencha os dados abaixo para manter o cadastro atualizado.
-              </p>
-            </div>
-            <a class="btn btn--secondary" th:href="@{/fornecedor/listarFornecedores}"
-              >Voltar para lista</a
-            >
-          </div>
+      <main class="main-wrap">
+        <section class="page-card">
+          <h1 class="page-title" th:text="${fornecedor.idFornecedor == null ? 'Novo fornecedor' : 'Editar fornecedor'}">Fornecedor</h1>
+          <p class="page-subtitle">Mantenha os dados de cadastro e contato atualizados.</p>
 
-          <form
-            th:action="@{/fornecedor/salvarFornecedores}"
-            th:object="${fornecedor}"
-            method="POST"
-          >
+          <form th:action="@{/fornecedor/salvarFornecedores}" th:object="${fornecedor}" method="post" class="js-validate" data-loading-text="Salvando fornecedor..." novalidate>
             <input type="hidden" th:field="*{idFornecedor}" />
+
             <div class="form-grid">
-              <div class="field-group">
-                <label for="nomeFornecedor">Nome do fornecedor</label>
-                <input id="nomeFornecedor" type="text" th:field="*{nomeFornecedor}" />
+              <div class="field field--full">
+                <label for="nomeFornecedor">Nome</label>
+                <input id="nomeFornecedor" type="text" th:field="*{nomeFornecedor}" required minlength="2" aria-label="Nome do fornecedor" />
               </div>
 
-              <div class="field-group">
+              <div class="field">
                 <label for="cpjFornecedor">CNPJ</label>
-                <input id="cpjFornecedor" type="text" th:field="*{cpjFornecedor}" />
+                <input id="cpjFornecedor" type="text" th:field="*{cpjFornecedor}" required minlength="8" aria-label="CNPJ" />
               </div>
 
-              <div class="field-group">
+              <div class="field">
                 <label for="telefoneFornecedor">Telefone</label>
-                <input id="telefoneFornecedor" type="text" th:field="*{telefoneFornecedor}" />
+                <input id="telefoneFornecedor" type="text" th:field="*{telefoneFornecedor}" required minlength="8" aria-label="Telefone" />
               </div>
 
-              <div class="field-group">
+              <div class="field">
                 <label for="cidadeFornecedor">Cidade</label>
-                <input id="cidadeFornecedor" type="text" th:field="*{cidadeFornecedor}" />
+                <input id="cidadeFornecedor" type="text" th:field="*{cidadeFornecedor}" required minlength="2" aria-label="Cidade" />
               </div>
 
-              <div class="field-group field-group--full">
-                <label for="enderecoFornecedor">Endereço</label>
-                <input id="enderecoFornecedor" type="text" th:field="*{enderecoFornecedor}" />
+              <div class="field field--full">
+                <label for="enderecoFornecedor">Endereco</label>
+                <input id="enderecoFornecedor" type="text" th:field="*{enderecoFornecedor}" required minlength="4" aria-label="Endereco" />
               </div>
             </div>
 
             <div class="form-actions">
-              <button class="btn btn--primary" type="submit">Salvar fornecedor</button>
-              <a class="btn btn--secondary" th:href="@{/fornecedor/listarFornecedores}"
-                >Cancelar</a
-              >
+              <button class="btn btn-primary" type="submit"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
+              <a class="btn btn-secondary" th:href="@{/fornecedor/listarFornecedores}">Cancelar</a>
             </div>
           </form>
         </section>
       </main>
+
+      <footer class="site-footer">
+        <div class="footer-inner">
+          <span>© 2026 Tabajara. Todos os direitos reservados.</span>
+          <div class="footer-links">
+            <a th:href="@{/home}">Home</a>
+            <a th:href="@{/produtos/listar}">Produtos</a>
+            <a th:href="@{/fornecedor/listarFornecedores}">Fornecedores</a>
+          </div>
+        </div>
+      </footer>
     </div>
   </body>
 </html>
+
+

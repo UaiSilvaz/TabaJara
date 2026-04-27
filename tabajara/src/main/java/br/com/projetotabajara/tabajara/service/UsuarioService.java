@@ -1,4 +1,4 @@
-package br.com.projetotabajara.tabajara.service;
+﻿package br.com.projetotabajara.tabajara.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,7 +23,6 @@ public class UsuarioService {
     private PasswordEncoder passwordEncoder;
 
     public Usuario save(Usuario usuario) {
-
         usuario.setNomeUsuario(normalizarEspacos(usuario.getNomeUsuario()));
         usuario.setEmailUsuario(normalizarTexto(usuario.getEmailUsuario()).toLowerCase(Locale.ROOT));
         usuario.setLoginUsuario(normalizarTexto(usuario.getLoginUsuario()).toLowerCase(Locale.ROOT));
@@ -46,39 +45,32 @@ public class UsuarioService {
         return usuarioRepository.findById(id).orElse(null);
     }
 
-    // Método para gerar um token de recuperação de senha
     public String gerarTokenRecuperacao(String email) {
-        Usuario usuario = usuarioRepository.findByEmailUsuario(email).orElse(null);
+        String emailNormalizado = normalizarTexto(email).toLowerCase(Locale.ROOT);
+        Usuario usuario = usuarioRepository.findByEmailUsuarioIgnoreCase(emailNormalizado).orElse(null);
         if (usuario == null) {
             return null;
         }
 
-        // Gera um token
         String token = UUID.randomUUID().toString();
-        // Define token e expiração (30 min)
         usuario.setResetToken(token);
         usuario.setTokenExpiration(LocalDateTime.now().plusMinutes(30));
         usuarioRepository.save(usuario);
         return token;
     }
 
-    // Método para redefinir a senha
     public boolean redefinirSenha(String token, String novaSenha) {
         Usuario usuario = usuarioRepository.findByResetToken(token);
         if (usuario == null || usuario.getTokenExpiration() == null
                 || usuario.getTokenExpiration().isBefore(LocalDateTime.now())) {
-            return false; // Token inválido ou expirado
+            return false;
         }
 
-        // Criptografa a nova senha
-
-        usuario.setSenhaUsuario(passwordEncoder.encode(novaSenha));
-        // Limpa o token após o uso
+        usuario.setSenhaUsuario(passwordEncoder.encode(normalizarTexto(novaSenha)));
         usuario.setResetToken(null);
         usuario.setTokenExpiration(null);
         usuarioRepository.save(usuario);
         return true;
-
     }
 
     private void validarDuplicidade(Usuario usuario) {

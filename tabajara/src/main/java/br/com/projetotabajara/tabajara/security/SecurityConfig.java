@@ -1,4 +1,4 @@
-package br.com.projetotabajara.tabajara.security;
+﻿package br.com.projetotabajara.tabajara.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,11 +25,17 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authenticationProvider(authenticationProvider())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login", "/tabajara", "/css/**", "/js/**", "/images/**",
+                        .requestMatchers(
+                                "/",
+                                "/login",
+                                "/css/**",
+                                "/js/**",
+                                "/images/**",
                                 "/usuarios/criar",
                                 "/usuarios/salvar",
-
-                                "/esqueci-senha", "/redefinir-senha/**")
+                                "/esqueci-senha",
+                                "/redefinir-senha",
+                                "/redefinir-senha/**")
                         .permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form
@@ -41,6 +47,7 @@ public class SecurityConfig {
                         .failureUrl("/login?error")
                         .permitAll())
                 .logout(logout -> logout
+                        .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout")
                         .permitAll());
 

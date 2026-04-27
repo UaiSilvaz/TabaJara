@@ -1,11 +1,14 @@
 package br.com.projetotabajara.tabajara.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -42,6 +45,9 @@ public class Produto {
     @ManyToOne
     @JoinColumn(name = "idFornecedor_fk")
     private Fornecedor fornecedor;
+
+    @ManyToMany(mappedBy = "produto")
+    private List<ItemDoPedido> itens;
 
     // A chave estrangeira é a coluna que faz a ligação entre as tabelas, nesse caso
     // a coluna idFornecedor_fk é a chave estrangeira que liga a tabela Produto com

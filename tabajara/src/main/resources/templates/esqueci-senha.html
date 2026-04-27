@@ -1,0 +1,85 @@
+﻿<!doctype html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tabajara | Recuperar senha</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" th:href="@{/css/app.css(v=20260414)}" />
+    <script th:src="@{/js/app.js(v=20260414)}" defer></script>
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="site-header">
+        <div class="site-nav">
+          <a class="brand" th:href="@{/}">
+            <span class="brand__icon"><i class="fa-solid fa-bolt"></i></span>
+            <span>Tabajara</span>
+          </a>
+
+          <button class="nav-toggle" type="button" data-nav-toggle aria-controls="primary-nav" aria-expanded="false" aria-label="Abrir menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+
+          <nav class="nav-links" id="primary-nav" data-nav-links aria-label="Navegacao principal">
+            <a class="nav-link" th:href="@{/}">Inicio</a>
+            <a class="nav-link" th:href="@{/login}">Login</a>
+            <a class="nav-link" th:href="@{/usuarios/criar}">Criar conta</a>
+          </nav>
+
+          <div class="nav-actions">
+            <a class="btn btn-secondary" th:href="@{/login}"><i class="fa-solid fa-arrow-left"></i> Voltar ao login</a>
+          </div>
+        </div>
+      </header>
+
+      <main class="main-wrap auth-layout">
+        <section class="auth-card" aria-labelledby="titulo-recuperar">
+          <div class="auth-header">
+            <h1 class="auth-title" id="titulo-recuperar">Recuperar senha</h1>
+            <p class="auth-subtitle">Informe seu email para gerar um link de redefinicao.</p>
+          </div>
+
+          <div class="alert alert-error" th:if="${erro}" th:text="${erro}"></div>
+          <div class="alert alert-success" th:if="${mensagem}">
+            <strong>Solicitacao enviada.</strong>
+            <span th:text="${mensagem}"></span>
+          </div>
+
+          <form th:action="@{/esqueci-senha}" method="post" class="js-validate" data-loading-text="Enviando link..." novalidate>
+            <div class="form-grid">
+              <div class="field field--full">
+                <label for="email">Email cadastrado</label>
+                <div class="input-wrap">
+                  <i class="fa-regular fa-envelope input-icon"></i>
+                  <input id="email" name="email" type="email" class="has-icon" required aria-label="Email para recuperar senha" />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit"><i class="fa-solid fa-paper-plane"></i> Enviar link</button>
+              <a class="btn btn-secondary" th:href="@{/login}">Voltar</a>
+            </div>
+          </form>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="footer-inner">
+          <span>© 2026 Tabajara. Todos os direitos reservados.</span>
+          <div class="footer-links">
+            <a th:href="@{/}">Inicio</a>
+            <a th:href="@{/login}">Login</a>
+            <a th:href="@{/usuarios/criar}">Cadastro</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
+
+

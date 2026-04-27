@@ -1,81 +1,100 @@
-<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login Tabajara</title>
-    <link rel="stylesheet" th:href="@{/css/app.css}" />
-    <script th:src="@{/js/app.js}" defer></script>
+    <title>Tabajara | Login</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" th:href="@{/css/app.css(v=20260414)}" />
+    <script th:src="@{/js/app.js(v=20260414)}" defer></script>
   </head>
   <body>
-    <div class="app-shell">
-      <header class="app-header">
-        <div class="brand">
-          <div class="brand__icon">T</div>
-          <div class="brand__text">
-            <strong>Organizacoes Tabajara</strong>
-            <span>Acesso seguro</span>
+    <div class="site-shell">
+      <header class="site-header">
+        <div class="site-nav">
+          <a class="brand" th:href="@{/}">
+            <span class="brand__icon"><i class="fa-solid fa-bolt"></i></span>
+            <span>Tabajara</span>
+          </a>
+
+          <button class="nav-toggle" type="button" data-nav-toggle aria-controls="primary-nav" aria-expanded="false" aria-label="Abrir menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+
+          <nav class="nav-links" id="primary-nav" data-nav-links aria-label="Navegacao principal">
+            <a class="nav-link" th:href="@{/}">Inicio</a>
+            <a class="nav-link" th:href="@{/usuarios/criar}">Criar conta</a>
+            <a class="nav-link" th:href="@{/esqueci-senha}">Recuperar senha</a>
+          </nav>
+
+          <div class="nav-actions">
+            <a class="btn btn-secondary" th:href="@{/usuarios/criar}"><i class="fa-solid fa-user-plus"></i> Cadastro</a>
           </div>
         </div>
-        <nav class="app-nav" aria-label="Navegacao primaria">
-          <a class="app-nav__link" th:href="@{/}">Inicio</a>
-        </nav>
-        <button
-          class="theme-toggle"
-          id="theme-toggle"
-          type="button"
-          aria-label="Alternar tema entre claro e escuro"
-        ></button>
       </header>
 
-      <main class="app-main">
-        <section class="panel">
-          <div class="panel__header">
-            <div>
-              <h2>Faca login para continuar</h2>
-              <p class="table-caption">
-                Use seu login ou e-mail com a senha cadastrada para acessar o painel Tabajara.
-              </p>
-            </div>
-            <a class="btn btn--secondary" th:href="@{/usuarios/criar}">Criar usuario</a>
+      <main class="main-wrap auth-layout">
+        <section class="auth-card" aria-labelledby="titulo-login">
+          <div class="auth-header">
+            <h1 class="auth-title" id="titulo-login">Entrar na plataforma</h1>
+            <p class="auth-subtitle">Use login ou email para acessar seu painel.</p>
           </div>
 
-          <div class="alert alert--success" th:if="${param.cadastroSucesso}">
-            Cadastro realizado com sucesso. Voce ja pode entrar no sistema.
-          </div>
+          <div class="alert alert-success" th:if="${param.cadastroSucesso}">Cadastro realizado com sucesso. Faça login para continuar.</div>
+          <div class="alert alert-success" th:if="${param.senhaRedefinida}">Senha redefinida com sucesso. Entre com sua nova senha.</div>
+          <div class="alert alert-error" th:if="${param.error}">Credenciais invalidas. Confira login/email e senha.</div>
+          <div class="alert alert-info" th:if="${param.logout}">Sessao encerrada com sucesso.</div>
 
-          <div class="alert alert--error" th:if="${param.error}">
-            Nao foi possivel entrar. Confira se voce digitou o login ou e-mail e a senha
-            corretamente.
-          </div>
-
-          <div class="alert" th:if="${param.logout}">Sessao encerrada com sucesso.</div>
-
-          <form th:action="@{/login}" method="post">
+          <form th:action="@{/login}" method="post" class="js-validate" data-loading-text="Entrando..." novalidate>
             <div class="form-grid">
-              <div class="field-group">
-                <label for="login">Login ou e-mail</label>
-                <input
-                  id="login"
-                  name="login"
-                  type="text"
-                  placeholder="ex: joao ou joao@tabajara.com"
-                  required
-                />
+              <div class="field field--full">
+                <label for="login">Login ou email</label>
+                <div class="input-wrap">
+                  <i class="fa-regular fa-user input-icon"></i>
+                  <input id="login" name="login" type="text" class="has-icon" autocomplete="username" required minlength="3" aria-label="Login ou email" />
+                </div>
               </div>
 
-              <div class="field-group">
+              <div class="field field--full">
                 <label for="senha">Senha</label>
-                <input id="senha" name="senha" type="password" placeholder="********" required />
+                <div class="input-wrap">
+                  <i class="fa-solid fa-lock input-icon"></i>
+                  <input id="senha" name="senha" type="password" class="has-icon" autocomplete="current-password" required minlength="6" aria-label="Senha" />
+                  <button class="password-toggle" type="button" data-toggle-password="senha" aria-label="Mostrar senha">
+                    <i class="fa-regular fa-eye"></i>
+                  </button>
+                </div>
               </div>
             </div>
+
+            <div class="inline-options">
+              <a class="btn-link" th:href="@{/esqueci-senha}">Esqueci minha senha</a>
+              <a class="btn-link" th:href="@{/usuarios/criar}">Criar conta</a>
+            </div>
+
             <div class="form-actions">
-              <button class="btn btn--primary" type="submit">Entrar</button>
-              <a class="btn btn--secondary" th:href="@{/}">Voltar para o inicio</a>
+              <button class="btn btn-primary" type="submit"><i class="fa-solid fa-right-to-bracket"></i> Entrar</button>
+              <a class="btn btn-secondary" th:href="@{/}">Voltar</a>
             </div>
           </form>
         </section>
       </main>
+
+      <footer class="site-footer">
+        <div class="footer-inner">
+          <span>© 2026 Tabajara. Todos os direitos reservados.</span>
+          <div class="footer-links">
+            <a th:href="@{/}">Inicio</a>
+            <a th:href="@{/usuarios/criar}">Cadastro</a>
+            <a th:href="@{/esqueci-senha}">Recuperar senha</a>
+          </div>
+        </div>
+      </footer>
     </div>
   </body>
 </html>
+
+
